@@ -117,7 +117,7 @@ MINIMUM_SCORE = 500  # Minimum score needed to bank
 
 
 # === DATA STRUCTURES ===
-@dataclass
+@dataclass(frozen=True)
 class TurnState:
     """Current state of a player's turn"""
 
