@@ -170,7 +170,7 @@ class FarkleGame:
 
     def __init__(self, bot1: FarkleBot, bot2: FarkleBot):
         self.bots = [bot1, bot2]
-        self.scores = [0, 0]
+        self.scores = [0, 200]
         self.current_player = 0
         self.game_log = []
         self.max_turns = 100  # Safety to prevent infinite games
@@ -223,7 +223,17 @@ class FarkleGame:
             return 0
 
         # Use the first (best) combination
-        return combinations[0][1]
+        score = combinations[0][1]
+        # remove the best combo and check for extra 1, 5 dice
+        ds = dice_sorted.copy()
+        for d in combinations[0][0]:
+            ds.remove(d)
+        for d in ds:
+            if d == 1:
+                score += 100
+            if d == 5:
+                score += 50
+        return score
 
     def validate_decision(self, decision: BotDecision, state: TurnState) -> bool:
         """Validate that a bot's decision is legal"""
