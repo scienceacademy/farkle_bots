@@ -228,11 +228,18 @@ class FarkleGame:
         ds = dice_sorted.copy()
         for d in combinations[0][0]:
             ds.remove(d)
+        r = []
         for d in ds:
             if d == 1:
                 score += 100
+                r.append(d)
             if d == 5:
                 score += 50
+                r.append(d)
+        for d in r:
+            ds.remove(d)
+        if len(ds) > 0:
+            return 0
         return score
 
     def validate_decision(self, decision: BotDecision, state: TurnState) -> bool:
